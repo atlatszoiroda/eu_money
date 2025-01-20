@@ -1,13 +1,13 @@
 name: run task.py
 
-#on:
-#  push:
-#    branches:
-#      - main  # Change this to your default branch if it's not 'main'
-
 on:
-  schedule:
-    - cron: '0 6 * * *' 
+  push:
+    branches:
+      - main  # Change this to your default branch if it's not 'main'
+
+#on:
+#  schedule:
+#    - cron: '0 6 * * *' 
 
 
 jobs:
