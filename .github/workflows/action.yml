@@ -29,6 +29,8 @@ jobs:
           pip install python-dotenv
           pip install pandas
           pip install requests
+          pip install pyarrow
+          pip install fastparquet
     
       - name: execute py script # run main.py
         run: python update_data.py
