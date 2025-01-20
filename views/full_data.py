@@ -40,6 +40,6 @@ def show_full_data():
     filtered_df = filtered_df.rename(columns=display_columns)
     st.dataframe(filtered_df.head(2000))
     
-    st.markdown("## A teljes adathalmaz letölthető [itt.](https://github.com/misrori/eu_love/raw/refs/heads/main/all_eu_money.xlsx)")
+    st.markdown("## A teljes adathalmaz letölthető [itt.](https://github.com/atlatszoiroda/eu_money/raw/refs/heads/main/all_eu_money.xlsx)")
 
 show_full_data()
