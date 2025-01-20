@@ -31,9 +31,7 @@ jobs:
           pip install requests
     
       - name: execute py script # run main.py
-        env:
-          KIWI_TOKEN: ${{ secrets.KIWI_TOKEN }}
-        run: python get_data.py
+        run: python update_data.py
 
       - name: commit files
         run: |
