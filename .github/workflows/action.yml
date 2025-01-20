@@ -31,6 +31,7 @@ jobs:
           pip install requests
           pip install pyarrow
           pip install fastparquet
+          pip install openpyxl
     
       - name: execute py script # run main.py
         run: python update_data.py
