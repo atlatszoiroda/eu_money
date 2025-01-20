@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-FIRST_RUN = True
+FIRST_RUN = False
 
 
 # Define the translation table
