@@ -205,7 +205,14 @@ def show_basic_info():
     # Összegző gondolat
     total_projects = df['id_palyazat'].nunique()
     total_funding = df['megitelt_tamogatas'].sum() / 1e9
-    st.markdown(f"# Összesen {total_funding:,.2f} milliárd Ft EU-s támogatás érkezett Magyarországra.  {total_projects:,.0f} projekt kapott támogatást.")
+    formatted_funding = f"{total_funding:,.2f}".replace(",", " ").replace(".", ",")
+    formatted_projects = f"{total_projects:,.0f}".replace(",", " ")
+
+    st.markdown(f"# Összesen {formatted_funding} milliárd Ft EU-s támogatás érkezett Magyarországra.")
+    st.markdown(f"# {formatted_projects} projekt kapott támogatást.")
+    
+    #st.markdown(f"# Összesen {total_funding:,.2f} milliárd Ft EU-s támogatás érkezett Magyarországra.  {total_projects:,.0f} projekt kapott támogatást.")
+    #st.markdown(f"# Összesen {total_funding:,.2f} milliárd Ft EU-s támogatás érkezett Magyarországra.\n {total_projects:,.0f} projekt kapott támogatást.".replace(",", " ").replace(".", ","))
 
     # Plot elrendezés
     with st.container(border=True):
