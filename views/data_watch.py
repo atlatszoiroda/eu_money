@@ -101,7 +101,7 @@ def show_grouped_data():
                     xaxis_title=x_axis, 
                     yaxis_title=y_axis, 
                     height=900,
-                    xaxis=dict(tickangle=45)
+                    xaxis=dict(tickangle=-45)
                     )  
         st.plotly_chart(fig)
 
