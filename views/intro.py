@@ -39,8 +39,8 @@ def get_infoplots(df):
         x='year_month',
         y='megitelt_tamogatas',
         color='fejlesztesi_program_nev',
-        title='Megitélt támogatás havonta fejlesztési programonként',
-        labels={'year_month': 'Év-hónap', 'megitelt_tamogatas': 'Megitélt támogatás', 'fejlesztesi_program_nev': 'Fejlesztési program'},
+        title='Megítélt támogatás havonta fejlesztési programonként',
+        labels={'year_month': 'Év-hónap', 'megitelt_tamogatas': 'Megítélt támogatás', 'fejlesztesi_program_nev': 'Fejlesztési program'},
         barmode='group'
     )
 
@@ -48,7 +48,7 @@ def get_infoplots(df):
         barmode='stack',
         plot_bgcolor='white',
         xaxis_title='Év',
-        yaxis_title='Megitélt támogatás összege (milliárd Ft)',
+        yaxis_title='Megítélt támogatás összege (milliárd Ft)',
         legend_title='',
         height=800,
         legend=dict(
@@ -88,7 +88,7 @@ def get_infoplots(df):
         barmode='stack',
         plot_bgcolor='white',
         yaxis_title='Fejlesztési program',
-        xaxis_title='Megitélt támogatás (milliárd  Ft)',
+        xaxis_title='Megítélt támogatás (milliárd  Ft)',
         height=600,
         xaxis=dict(
             tickformat=',',  # Ensure numbers are displayed fully with commas
@@ -121,7 +121,7 @@ def get_infoplots(df):
         barmode='stack',
         plot_bgcolor='white',
         yaxis_title='Régió',
-        xaxis_title='Megitélt támogatás (milliárd  Ft)',
+        xaxis_title='Megítélt támogatás (milliárd  Ft)',
         xaxis=dict(
             tickformat=',',  # Ensure numbers are displayed fully with commas
         )
@@ -152,7 +152,7 @@ def get_infoplots(df):
         barmode='stack',
         plot_bgcolor='white',
         yaxis_title='Megye',
-        xaxis_title='Megitélt támogatás (milliárd  Ft)',
+        xaxis_title='Megítélt támogatás (milliárd  Ft)',
         xaxis=dict(
             tickformat=',',  # Ensure numbers are displayed fully with commas
         )
@@ -183,7 +183,7 @@ def get_infoplots(df):
         barmode='stack',
         plot_bgcolor='white',
         xaxis_title='Pályázó',
-        yaxis_title='Megitélt támogatás (milliárd  Ft)',
+        yaxis_title='Megítélt támogatás (milliárd  Ft)',
         xaxis=dict(
             tickangle=-45,
             tickformat=','
