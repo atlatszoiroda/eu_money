@@ -44,7 +44,7 @@ def show_grouped_data():
     }
 
     reverse_mapping = {v: k for k, v in column_descriptions.items()}
-    selected_descriptions = st.multiselect("",list(column_descriptions.values()), placeholder="Válassz legalább egy oszlopot a csoportosításhoz!")
+    selected_descriptions = st.multiselect(" ",list(column_descriptions.values()), placeholder="Válassz legalább egy oszlopot a csoportosításhoz!")
     selected_columns = [reverse_mapping[desc] for desc in selected_descriptions]
 
     if st.button("Csoportosítás"):
@@ -65,7 +65,7 @@ def show_grouped_data():
             st.session_state.grouped_df = grouped_df
 
     else:
-        st.write("")
+        st.write(" ")
     
     # display grouped data
     if st.session_state.grouped_df is not None:
