@@ -525,7 +525,7 @@ def show_map():
             st.markdown("#### Válassz térképtípust:")
             # selector for map type
             map_type = st.radio(
-                "",
+                " ",
                 ["Régió", "Megye", "Kistérség", "Település"],
             )
         
@@ -543,7 +543,7 @@ def show_map():
 
             # radio button for including budapest
             include_budapest = st.radio(
-                "",
+                " ",
                 ["Igen", "Nem"],
                 index=1,
             )
