@@ -21,7 +21,12 @@ df = read_data()
 
 @st.fragment
 def show_grouped_data():
-    st.markdown("#### Ebben a részben csoportosíthatod az adatokat, és megtekintheted az eredményeket.")
+    st.logo(
+        'https://atlatszo.hu/wp-content/themes/atlatszo2021/i/atlatszo-logo.svg',
+        link="https://atlatszo.hu/",
+        size="large")
+    st.markdown("### Ebben a részben csoportosíthatod az adatokat és megtekintheted az eredményeket.")
+    st.markdown("<p style='font-size: 18px;margin-bottom:-3vh'>A szűrő segítségével egyedi kimutatásokat lehet készíteni és diagramon ábrázolni.</p>", unsafe_allow_html=True)
     
     column_descriptions = {
         'palyazo_neve': 'Pályázó neve',
@@ -39,7 +44,7 @@ def show_grouped_data():
     }
 
     reverse_mapping = {v: k for k, v in column_descriptions.items()}
-    selected_descriptions = st.multiselect("Válassz oszlopokat:", list(column_descriptions.values()), placeholder="Válassz legalább egy oszlopot!")
+    selected_descriptions = st.multiselect("",list(column_descriptions.values()), placeholder="Válassz legalább egy oszlopot a csoportosításhoz!")
     selected_columns = [reverse_mapping[desc] for desc in selected_descriptions]
 
     if st.button("Csoportosítás"):
@@ -56,10 +61,11 @@ def show_grouped_data():
             grouped_df = grouped_df.rename(columns={'megitelt_tamogatas': 'Megítélt támogatás', 'number_of_projects': 'Projektek száma'})
             grouped_df.reset_index(drop=True, inplace=True)
             st.dataframe(grouped_df)
+
             st.session_state.grouped_df = grouped_df
 
     else:
-        st.write("Válassz legalább egy oszlopot a csoportosításhoz.")
+        st.write("")
     
     # display grouped data
     if st.session_state.grouped_df is not None:
@@ -87,22 +93,29 @@ def show_grouped_data():
         grouped_df = grouped_df.sort_values(by=y_axis, ascending=False)
         
         if color:
-            fig = px.bar(grouped_df.head(top_n), x=x_axis, y=y_axis, color=color,
+            fig = px.bar(grouped_df.head(top_n), y=x_axis, x=y_axis, color=color,
                         title=f'Megítélt támogatások csoportosítása {x_axis} szerint', 
                         labels={'Megítélt támogatás': 'Megítélt támogatás (milliárd Ft)'})
             
-            fig.update_layout( xaxis_title=x_axis, yaxis_title=y_axis, height=900, legend_title=color, xaxis=dict(tickangle=45) )  
+            fig.update_layout( xaxis_title=x_axis, yaxis_title=y_axis, height=900, legend_title=color, xaxis=dict(tickangle=0),yaxis=dict(autorange='reversed' ) )  
 
         else: 
-            fig = px.bar(grouped_df.head(top_n), x=x_axis, y=y_axis,
+            fig = px.bar(grouped_df.head(top_n), y=x_axis, x=y_axis,
                             title=f'Megítélt támogatások csoportosítása {x_axis} szerint',
                             labels={'Megítélt támogatás': 'Megítélt támogatás (milliárd Ft)'} )
             fig.update_layout( 
-                    xaxis_title=x_axis, 
-                    yaxis_title=y_axis, 
+                    yaxis_title=x_axis, 
+                    xaxis_title=y_axis, 
                     height=900,
-                    xaxis=dict(tickangle=45)
-                    )  
+                    xaxis=dict(tickangle=0),
+                    yaxis=dict(
+                    autorange='reversed' 
+                    )
+                    )
+            fig.update_traces(
+                marker=dict(color='#c4c4c4'),
+                
+                )
         st.plotly_chart(fig)
 
 
