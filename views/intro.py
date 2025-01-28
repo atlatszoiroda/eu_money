@@ -47,9 +47,9 @@ def get_infoplots(df):
     fig.update_layout(
         barmode='stack',
         plot_bgcolor='white',
-        xaxis_title='',
+        xaxis_title=' ',
         yaxis_title='Megítélt támogatás összege (milliárd Ft)',
-        legend_title='',
+        legend_title=' ',
         height=800,
         legend=dict(
             orientation="h",
@@ -89,7 +89,7 @@ def get_infoplots(df):
     fig.update_layout(
         barmode='stack',
         plot_bgcolor='white',
-        yaxis_title='',
+        yaxis_title=' ',
         xaxis_title='Megítélt támogatás (milliárd  Ft)',
         height=600,
         xaxis=dict(
@@ -127,7 +127,7 @@ def get_infoplots(df):
     fig.update_layout(
         barmode='stack',
         plot_bgcolor='white',
-        yaxis_title='',
+        yaxis_title=' ',
         xaxis_title='Megítélt támogatás (milliárd  Ft)',
         height=500,
         xaxis=dict(
@@ -165,7 +165,7 @@ def get_infoplots(df):
     fig.update_layout(
         barmode='stack',
         plot_bgcolor='white',
-        yaxis_title='',
+        yaxis_title=' ',
         xaxis_title='Megítélt támogatás (milliárd  Ft)',
         height=500,
         xaxis=dict(
@@ -208,7 +208,7 @@ def get_infoplots(df):
     fig.update_layout(
         barmode='stack',
         plot_bgcolor='white',
-        yaxis_title='',
+        yaxis_title=' ',
         xaxis_title='Megítélt támogatás (milliárd  Ft)',
         xaxis=dict(
             tickangle=0,
