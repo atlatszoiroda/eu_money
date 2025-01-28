@@ -46,7 +46,7 @@ def show_full_data():
     with st.container(border=False):
         st.markdown('<p style="font-size: 18px;margin-bottom:-5vh">Az alábbi táblázatban az uniós pályázatok adatbázisát lehet böngészni. A <i>részletes szűrés</i> gombra kattintva nyertes pályázó, fejlesztési program, település és megye szerint lehet szűkíteni a találatok számát. A táblázat jobb felső sarkában lévő letöltés (lefele mutató nyíl) gombra kattinva az aktuális nézet adatai letölthetők.<br>A gombokra kattintva válassz megjelenítési módot:</p>', unsafe_allow_html=True)
 
-        display_option = st.radio('', ('Top 2000 projekt', 'Részletes szűrés'), horizontal=True)
+        display_option = st.radio(' ', ('Top 2000 projekt', 'Részletes szűrés'), horizontal=True)
 
 
     if display_option == 'Top 2000 projekt':
