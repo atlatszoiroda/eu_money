@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 
 
 def get_map(filtered_df, map_type, incude_bp=True):
-    base_lon = 20
-    base_lat =47.14
+    base_lon = 19.5033
+    base_lat =47.1625
     
     if map_type == "regio":
         # group by megye
@@ -51,12 +51,12 @@ def get_map(filtered_df, map_type, incude_bp=True):
         colormap = branca.colormap.LinearColormap(
             vmin=regio_map["megitelt_tamogatas_milliard"].quantile(0.0) ,
             vmax=regio_map["megitelt_tamogatas_milliard"].quantile(1) ,
-            colors=[plt.cm.Reds(i / 255) for i in range(256)],
-            caption="Megítélt támogatás régió szinten",
-        ).to_step(n=6)  # Összesen 6 lépés, hogy ne legyen túl zsúfolt
+            colors = ["#FFF0F0", "#ff0000"],
+            caption="Megítélt támogatás régiónként",
+        )
 
         # Az osztások számának és címkéinek formázása
-        colormap.caption = "Megítélt támogatás (Milliárd Ft)"
+        colormap.caption = "Megítélt támogatás régiónként (Milliárd Ft)"
         colormap.format = "{:.0f}"  # Egész számok formátuma
 
         # Színskála hozzáadása a térképhez
@@ -157,12 +157,12 @@ def get_map(filtered_df, map_type, incude_bp=True):
         colormap = branca.colormap.LinearColormap(
             vmin=megye_map["megitelt_tamogatas_milliard"].quantile(0.0),
             vmax=megye_map["megitelt_tamogatas_milliard"].quantile(1),
-            colors=[plt.cm.Reds(i / 255) for i in range(256)],
-            caption="Megitélt támogatás megye szinten",
-        ).to_step(n=6)  # Összesen 6 lépés, hogy ne legyen túl zsúfolt
+            colors = ["#FFF0F0", "#ff0000"],
+            caption="Megitélt támogatás megyénként",
+        )
 
         # Az osztások számának és címkéinek formázása
-        colormap.caption = "Megítélt támogatás (Milliárd Ft)"
+        colormap.caption = "Megítélt támogatás megyénként (Milliárd Ft)"
         colormap.format = "{:.0f}"  # Egész számok formátuma
 
 
@@ -263,12 +263,12 @@ def get_map(filtered_df, map_type, incude_bp=True):
         colormap = branca.colormap.LinearColormap(
             vmin=kisterseg_map["megitelt_tamogatas_milliard"].quantile(0.0),
             vmax=kisterseg_map["megitelt_tamogatas_milliard"].quantile(1),
-            colors=[plt.cm.Reds(i / 255) for i in range(256)],
-            caption="Megitélt támogatás megye szinten",
-        ).to_step(n=6)  # Összesen 6 lépés, hogy ne legyen túl zsúfolt
+            colors = ["#FFF0F0", "#ff0000"],
+            caption="Megitélt támogatás kistérségenként",
+        )
 
         # Az osztások számának és címkéinek formázása
-        colormap.caption = "Megítélt támogatás (Milliárd Ft)"
+        colormap.caption = "Megítélt támogatás kistérségenként (Milliárd Ft)"
         colormap.format = "{:.0f}"  # Egész számok formátuma
 
 
@@ -370,18 +370,20 @@ def get_map(filtered_df, map_type, incude_bp=True):
         colormap = branca.colormap.LinearColormap(
             vmin=varos_map["megitelt_tamogatas_millio"].quantile(0.0),
             vmax=varos_map["megitelt_tamogatas_millio"].quantile(1),
-            colors=[plt.cm.Reds(i / 255) for i in range(256)],
-        ).to_step(n=6)  # Összesen 6 lépés, hogy ne legyen túl zsúfolt
+            colors = ["#FFF0F0", "#ff0000"],
+            caption="Megítélt támogatás településenként"
+        )
+
 
         # Az osztások számának és címkéinek formázása
-        colormap.caption = "Megítélt támogatás (Millió Ft)"
+        colormap.caption = "Megítélt támogatás településenként (Millió Ft)"
         colormap.format = "{:.0f}"  # Egész számok formátuma
 
         m = folium.Map(location=[base_lat, base_lon], zoom_start=8, min_zoom=7, max_zoom=18, tiles="Cartodb Positron",)
 
         popup = folium.GeoJsonPopup(
             fields=["varos", "megitelt_tamogatas_text" ],
-            aliases=["Város", "Megitélt támogatás" ],
+            aliases=["Település", "Megitélt támogatás" ],
             localize=False,
             labels=True,
             style="""
@@ -395,7 +397,7 @@ def get_map(filtered_df, map_type, incude_bp=True):
 
         tooltip = folium.GeoJsonTooltip(
             fields=["varos", "megitelt_tamogatas_text" ],
-            aliases=["Város", "Megitélt támogatás" ],
+            aliases=["Település", "Megitélt támogatás" ],
             localize=False,
             sticky=False,
             labels=True,
@@ -424,7 +426,7 @@ def get_map(filtered_df, map_type, incude_bp=True):
         varos_search = Search(
             layer=varos_layer,
             geom_type="Polygon",
-            placeholder="Város keresés",
+            placeholder="Település keresés",
             collapsed=False,
             search_label="varos",
             weight=8,
@@ -472,8 +474,14 @@ regio, megye, kisterseg, varos = read_geojsons()
 
 @st.fragment
 def show_map():
+    st.logo(
+        'https://atlatszo.hu/wp-content/themes/atlatszo2021/i/atlatszo-logo.svg',
+        link="https://atlatszo.hu/",
+        size="large")
     
-    col1, col2, col3, col4 = st.columns([1.4, 1, 1, 1])
+    st.markdown(f"### Válassz paramétereket a térképhez!")
+    st.markdown("<p style='font-size: 18px'>A térképes ábrázoláshoz három módon lehet szűrni az adatbázist: fejlesztési program, forrás és megítélés éve szerint. Ezeket az adatokat négy különböző területi részletesség szerint lehet ábrázolni: régiónként, megyénként, kistérségenként vagy településenként. Budapest opcionálisan hozzáadható vagy elvehető a térképről. Budapest nélkül a főváros torzító hatása nem fog érvényesülni a térképen, így az apróbb különbségek jobban láthatóvá válnak.</p>", unsafe_allow_html=True)
+    col1, col2, col3, col4 = st.columns([1, 0.8, 0.8, 0.3])
     # filter at col1
     with col1:
         
@@ -481,7 +489,7 @@ def show_map():
         
         with st.container(border=True):
             # create filter for fejlesztesi program neve, forrás, nyerter top 200, megitelt év
-            st.markdown("## Szűrés")
+            st.markdown("#### Szűrd eszerint:")
             
             filter_for_fejlesztesi_program_neve = st.checkbox("Fejlesztesi program neve")
             
@@ -514,11 +522,11 @@ def show_map():
     with col2:
         
         with st.container(border=True):
-            st.markdown("## Térkép típus")
+            st.markdown("#### Válassz térképtípust:")
             # selector for map type
-            map_type = st.selectbox(
-                "# Válassz térképtípust:",
-                ["Régió", "Megye", "Kistérség", "Város"],
+            map_type = st.radio(
+                "",
+                ["Régió", "Megye", "Kistérség", "Település"],
             )
         
     # dictory for map type
@@ -526,22 +534,22 @@ def show_map():
         "Megye": "megye",
         "Régió": "regio",
         "Kistérség": "kisterseg",
-        "Város": "varos",
+        "Település": "varos",
     }
     
     with col3:
         with st.container(border=True):
-            st.markdown("## Budapest")
+            st.markdown("#### Budapest megjelenítése:")
 
             # radio button for including budapest
             include_budapest = st.radio(
-                "Budapest megjelenítése?",
+                "",
                 ["Igen", "Nem"],
                 index=1,
             )
             
     with col4:
-        with st.container(border=True):
+        with st.container(border=False):
             # refresh button
             refresh_button = st.button("Mehet!")
   
@@ -567,7 +575,7 @@ def show_map():
                 Fullscreen(position="topleft").add_to(m)
                 if no_data_info:
                     st.markdown(f"### {no_data_info}")
-                st_folium(m, height=900,width=1800, returned_objects=[])
+                st_folium(m, height=900,width=1400, returned_objects=[])
             except Exception as e:
                 st.markdown(f"### Hiba történt a térkép generálása közben, probáld újra! {e}")
 
