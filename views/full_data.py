@@ -13,6 +13,7 @@ def read_data():
     df['tam_dont_datum'] = pd.to_datetime(df['tam_dont_datum'], format='%Y.%m.%d').dt.date
     df['megitelt_tamogatas_eve'] = pd.to_datetime(df['tam_dont_datum'], format='%Y.%m.%d').dt.year
     df.reset_index(drop=True, inplace=True)
+    df['megitelt_tamogatas'] = df['megitelt_tamogatas'].apply(lambda x: f"{x:,}".replace(",", " "))
     return df
 df = read_data()
 
@@ -37,32 +38,35 @@ display_columns = {
 
 @st.fragment
 def show_full_data():
+    st.logo(
+        'https://atlatszo.hu/wp-content/themes/atlatszo2021/i/atlatszo-logo.svg',
+        link="https://atlatszo.hu/",
+        size="large")
     # Rádiógomb a megjelenítési mód kiválasztásához
-    with st.container(border=True):
-        st.markdown("#### Válassz megjelenítési módot:")
-        display_option = st.radio(
-            "",
-            ('Top 2000 projekt', 'Szűrés'), horizontal=True
-        )
+    with st.container(border=False):
+        st.markdown('<p style="font-size: 18px;margin-bottom:-5vh">Az alábbi táblázatban az uniós pályázatok adatbázisát lehet böngészni. A <i>részletes szűrés</i> gombra kattintva nyertes pályázó, fejlesztési program, település és megye szerint lehet szűkíteni a találatok számát. A táblázat jobb felső sarkában lévő letöltés (lefele mutató nyíl) gombra kattinva az aktuális nézet adatai letölthetők.<br>A gombokra kattintva válassz megjelenítési módot:</p>', unsafe_allow_html=True)
+
+        display_option = st.radio('', ('Top 2000 projekt', 'Részletes szűrés'), horizontal=True)
+
 
     if display_option == 'Top 2000 projekt':
-        st.markdown("## Az első 2000 nyertes projekt")
+        st.markdown("#### Az első 2000 nyertes projekt")
 
         filtered_df = df[list(display_columns.keys())]
         filtered_df = filtered_df.rename(columns=display_columns)
         filtered_df.reset_index(drop=True, inplace=True)
         st.dataframe(filtered_df.head(2000))
     else:
-        col1, col2, col3, col4, col5 = st.columns(5, vertical_alignment='center')
+        col1, col2, col3, col4, col5= st.columns([2, 2, 2, 2, 1], vertical_alignment='bottom')
         
         with col1:
-            applicant_filter = st.multiselect("Nyertes pályázó", options=df['palyazo_neve'].unique())
+            applicant_filter = st.multiselect("Nyertes pályázó", options=df['palyazo_neve'].unique(), placeholder="Válassz a listából!")
         with col2:
-            fejlesztesi_filter = st.multiselect("Fejlesztési program", options=df['fejlesztesi_program_nev'].unique())
+            fejlesztesi_filter = st.multiselect("Fejlesztési program", options=df['fejlesztesi_program_nev'].unique(), placeholder="Válassz a listából!")
         with col3:
-            city_filter = st.multiselect("Település neve", options=df['helyseg_nev'].unique())
+            city_filter = st.multiselect("Település neve", options=df['helyseg_nev'].unique(), placeholder="Válassz a listából!")
         with col4:
-            county_filter = st.multiselect("Megye neve", options=df['megval_megye_nev'].unique())
+            county_filter = st.multiselect("Megye neve", options=df['megval_megye_nev'].unique(), placeholder="Válassz a listából!")
         with col5:
             filter_button = st.button("Szűrés")
         
@@ -90,6 +94,6 @@ def show_full_data():
 
             st.dataframe(filtered_df)
 
-    st.markdown("## A teljes adathalmaz letölthető [itt.](https://github.com/misrori/eu_love/raw/refs/heads/main/all_eu_money.xlsx)")
+    st.markdown("## A teljes adatbázis letölthető [innen](https://github.com/misrori/eu_love/raw/refs/heads/main/all_eu_money.xlsx).")
 
 show_full_data()
