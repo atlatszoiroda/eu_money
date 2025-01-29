@@ -77,9 +77,9 @@ def show_grouped_data():
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            x_axis = st.selectbox("X tengely:", grouped_df.columns, index=0)
+            x_axis = st.selectbox("Y tengely:", grouped_df.columns, index=0)
         with col2:
-            y_axis = st.selectbox("Y tengely:", grouped_df.columns, index=col_index)
+            y_axis = st.selectbox("X tengely:", grouped_df.columns, index=col_index)
         # if data has at least 5 columns, display color selector
         if grouped_df.shape[1] > 3:
             with col3:
