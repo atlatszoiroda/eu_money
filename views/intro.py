@@ -235,7 +235,7 @@ def show_basic_info():
     formatted_funding = f"{total_funding:,.2f}".replace(",", " ").replace(".", ",")
     formatted_projects = f"{total_projects:,.0f}".replace(",", " ")
 
-    st.markdown(f"## 2005 óta összesen {formatted_funding} milliárd Ft EU-s támogatás érkezett Magyarországra. Ezt az összeget {formatted_projects} projekt kapta.")
+    st.markdown(f"## 2004 óta összesen {formatted_funding} milliárd Ft EU-s támogatás érkezett Magyarországra. Ezt az összeget {formatted_projects} projekt kapta.")
     st.markdown("<p style='font-size: 18px'>A <a href='https://www.palyazat.gov.hu/eredmenyek/tamogatott-projektek?program=Széchenyi+terv+plusz' target='_blank'>palyazat.gov.hu</a> oldalon található adatok alapján naponta frissül az oldal.<br>Az alábbi diagramokon bemutatjuk a megítélt támogatásokat évek, fejlesztési programok, területi egységek és legtöbbet nyert pályázók szerint.<br>A bal oldali menüsávban további oldalakon lehet böngészni a teljes adatbázist.<br>Az alkalmazást a legjobb felhasználói élmény érdekében számítógépes webböngészőben érdemes használni.</p>", unsafe_allow_html=True)
 
     
