@@ -88,6 +88,6 @@ def show_full_data():
 
             st.dataframe(filtered_df)
 
-    st.markdown("## A teljes adatbázis letölthető [innen](https://github.com/misrori/eu_love/raw/refs/heads/main/all_eu_money.xlsx).")
+    st.markdown("## A teljes adatbázis letölthető [innen](https://github.com/atlatszoiroda/eu_money/raw/refs/heads/main/all_eu_money.xlsx).")
 
 show_full_data()
